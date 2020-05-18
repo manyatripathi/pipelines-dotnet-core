@@ -3,7 +3,6 @@ def readProperties()
 
 	def properties_file_path = "${workspace}" + "@script/properties.yml"
 	def property = readYaml file: properties_file_path
-	env.APP_NAME = property.APP_NAME
     env.MS_NAME = property.MS_NAME
     env.BRANCH = property.BRANCH
     env.GIT_SOURCE_URL = property.GIT_SOURCE_URL
@@ -12,17 +11,7 @@ def readProperties()
     env.CODE_QUALITY = property.CODE_QUALITY
     env.UNIT_TESTING = property.UNIT_TESTING
     env.CODE_COVERAGE = property.CODE_COVERAGE
-    env.FUNCTIONAL_TESTING = property.FUNCTIONAL_TESTING
-    env.SECURITY_TESTING = property.SECURITY_TESTING
-	env.PERFORMANCE_TESTING = property.PERFORMANCE_TESTING
-	env.TESTING = property.TESTING
-	env.QA = property.QA
-	env.PT = property.PT
-	env.User = property.User
-    env.DOCKER_REGISTRY = property.DOCKER_REGISTRY
-    env.DOCKER_REPO=property.DOCKER_REPO
-	
-	
+   
     
 }
 
