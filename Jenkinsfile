@@ -16,7 +16,7 @@ def readProperties()
 }
 
 
-podTemplate(cloud:'kubernetes',label: 'dotnet',
+podTemplate(cloud:'openshift',label: 'dotnet',
   containers: [
     containerTemplate(
       name: 'jnlp',
