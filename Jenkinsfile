@@ -20,7 +20,7 @@ podTemplate(cloud:'openshift',label: 'dotnet',
   containers: [
     containerTemplate(
       name: 'jnlp',
-      image: 'manya97/jnlp-slave-dotnet:multi01',
+      image: 'manya97/jnlp-slave-dotnet:multi',
       alwaysPullImage: false,
       envVars: [envVar(key:'http_proxy',value:''),envVar(key:'https_proxy',value:'')],
       args: '${computer.jnlpmac} ${computer.name}',
