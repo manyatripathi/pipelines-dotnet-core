@@ -21,8 +21,7 @@ podTemplate(cloud:'openshift',label: 'dotnet',
     containerTemplate(
       name: 'jnlp',
       image: 'manya97/jnlp-slave-dotnet:multi01',
-      alwaysPullImage: true,
-      privileged: true,
+      alwaysPullImage: false,
       envVars: [envVar(key:'http_proxy',value:''),envVar(key:'https_proxy',value:'')],
       args: '${computer.jnlpmac} ${computer.name}',
       ttyEnabled: true
