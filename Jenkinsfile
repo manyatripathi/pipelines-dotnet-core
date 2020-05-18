@@ -74,7 +74,7 @@ node
           stage('Code Quality and Build')
             {
 
-                sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /key:${MS_NAME} /d:sonar.cs.opencover.reportsPaths='*\coverage.opencover.xml\'"
+                sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /key:${MS_NAME} /d:sonar.cs.opencover.reportsPaths='*/coverage.opencover.xml/'"
 
               //sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /d:sonar.login=admin /d:sonar.password=admin /key:${MS_NAME}"
                   sh 'dotnet build'
