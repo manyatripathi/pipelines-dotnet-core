@@ -55,22 +55,15 @@ node
        {
            checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${SCR_CREDENTIALS}", url: "${GIT_SOURCE_URL}"]]])
        }
-       withCredentials([usernamePassword(credentialsId: "${SCR_CREDENTIALS}", usernameVariable: 'username', passwordVariable: 'password')])
-       {
-            PROXY_URL="http://$username:$password@10.74.91.103:80"
-        }
        
-      
-           withEnv(["http_proxy=${PROXY_URL}","https_proxy=${PROXY_URL}"]) 
-           {
-        	   stage('Initial Setup')
+       	   stage('Initial Setup')
         	   {
         			//sh 'dotnet clean'
         			sh 'dotnet restore'
         			sh 'dotnet tool install --global dotnet-sonarscanner --version 4.8.0'          			
         	   }
         	
-            }	
+           
         	if(env.UNIT_TESTING == 'True')
            {
            	stage('Unit Testing')
@@ -79,24 +72,24 @@ node
            	}
            }
    
-        	/*if(env.CODE_COVERAGE == 'True')
+           if(env.CODE_COVERAGE == 'True')
            {
            	stage('Code Coverage')
            	{
            	    sh 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
            	}
-           }*/
+           }
    
        if(env.CODE_QUALITY == 'True')
            { 	
           stage('Code Quality and Build')
             {
 
-                //sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /d:sonar.login=admin /d:sonar.password=admin /key:${MS_NAME} /d:sonar.cs.opencover.reportsPaths='dir\coverage.opencover.xml\'"
+                sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /key:${MS_NAME} /d:sonar.cs.opencover.reportsPaths='*\coverage.opencover.xml\'"
 
-              sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /d:sonar.login=admin /d:sonar.password=admin /key:${MS_NAME}"
+              //sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /d:sonar.login=admin /d:sonar.password=admin /key:${MS_NAME}"
                   sh 'dotnet build'
-                sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner end /d:sonar.login=admin /d:sonar.password=admin"
+                sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner end "
             }		
     	    }
 			
