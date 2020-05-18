@@ -1,0 +1,4 @@
+MS_NAME : 'pipelines-dotnet-core'
+GIT_SOURCE_URL : ''
+BRANCH : 'master'
+SONAR_HOST_URL : ''
