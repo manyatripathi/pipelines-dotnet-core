@@ -1,5 +1,5 @@
 MS_NAME : 'pipelines-dotnet-core'
-GIT_SOURCE_URL : ''
+GIT_SOURCE_URL : 'https://github.com/manyatripathi/pipelines-dotnet-core.git'
 SCR_CREDENTIALS: 'SCR_CRED'
 BRANCH : 'master'
 SONAR_HOST_URL : 'http://sonarqube-devops.apps.na311.openshift.opentlc.com'
