@@ -68,18 +68,7 @@ node
            	}
            }
    
-       if(env.CODE_QUALITY == 'True')
-           { 	
-          stage('Code Quality and Build')
-            {
-
-                sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /d:sonar.login=admin /d:sonar.password=admin /key:${MS_NAME} /d:sonar.cs.opencover.reportsPaths='*/coverage.opencover.xml/'"
-
-              //sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner begin  /d:sonar.host.url=${SONAR_HOST_URL} /d:sonar.login=admin /d:sonar.password=admin /key:${MS_NAME}"
-                  sh 'dotnet build'
-                sh "/home/jenkins/.dotnet/tools/dotnet-sonarscanner end /d:sonar.login=admin /d:sonar.password=admin"
-            }		
-    	    }
+      
 			
 			stage('Build')
         	   {
