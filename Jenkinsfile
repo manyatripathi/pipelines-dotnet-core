@@ -113,8 +113,9 @@ node
 						
 			
 						sh "docker build -t ${MS_NAME}:latest ."
-						//sh 'docker tag ${MS_NAME}:latest blrocpimpregistry:5000/${DOCKER_REPO}/$MS_NAME:$APP_NAME-dev-apps'
-						//sh 'docker push blrocpimpregistry:5000/${DOCKER_REPO}/$MS_NAME:$APP_NAME-dev-apps'
+						sh "docker login -u manya97 -p manya@docker"
+						sh 'docker tag ${MS_NAME}:latest manya97/$MS_NAME:latest'
+						sh 'docker push manya97/$MS_NAME:latest'
 				 }
 				
 			 }
