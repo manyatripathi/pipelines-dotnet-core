@@ -27,6 +27,17 @@ podTemplate(cloud:'openshift',label: 'dotnet',
       ttyEnabled: true
     )])
 {
+podTemplate(cloud:'openshift',label: 'docker',
+  containers: [
+    containerTemplate(
+      name: 'jnlp',
+      image: 'manya97/dotnet-docker-slave:latest',
+      alwaysPullImage: false,
+      envVars: [envVar(key:'http_proxy',value:''),envVar(key:'https_proxy',value:'')],
+      args: '${computer.jnlpmac} ${computer.name}',
+      ttyEnabled: true
+    )])
+{
 def PROXY_URL
 node 
 {
