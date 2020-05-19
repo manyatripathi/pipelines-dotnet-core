@@ -89,7 +89,25 @@ node
     	   }
 
     }
-
+	stage('Build Image'){
+		node('docker')
+			{
+				
+				container('jnlp')
+				{ 
+						dir('./PublishOutput')
+						{
+							unstash name : 'publishoutput'
+						}
+						
+			
+						sh "docker build -t ${MS_NAME}:latest ."
+						//sh 'docker tag ${MS_NAME}:latest blrocpimpregistry:5000/${DOCKER_REPO}/$MS_NAME:$APP_NAME-dev-apps'
+						//sh 'docker push blrocpimpregistry:5000/${DOCKER_REPO}/$MS_NAME:$APP_NAME-dev-apps'
+				 }
+				
+			 }
+	}
 
        
     
