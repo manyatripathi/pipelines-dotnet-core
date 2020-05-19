@@ -36,7 +36,7 @@ podTemplate(cloud:'openshift',label: 'docker',
       envVars: [envVar(key:'http_proxy',value:''),envVar(key:'https_proxy',value:'')],
       args: '${computer.jnlpmac} ${computer.name}',
       ttyEnabled: true
-    )],volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock'))
+    )],volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')])
 {
 def PROXY_URL
 node 
