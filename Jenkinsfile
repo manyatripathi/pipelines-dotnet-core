@@ -100,7 +100,7 @@ node
     	   }
 
    // }
-	stage('Build Image'){
+//	stage('Build Image'){
 //		node('docker')
 //			{
 				
@@ -114,14 +114,14 @@ node
 //						}
 						
 			
-						sh "docker build -t ${MS_NAME}:latest ."
-						sh "docker login -u manya97 -p manya@docker"
-						sh "docker tag ${MS_NAME}:latest manya97/$MS_NAME:latest"
-						sh 'docker push manya97/$MS_NAME:latest'
+//						sh "docker build -t ${MS_NAME}:latest ."
+//						sh "docker login -u manya97 -p manya@docker"
+//						sh "docker tag ${MS_NAME}:latest manya97/$MS_NAME:latest"
+//						sh 'docker push manya97/$MS_NAME:latest'
 //				 }
 				
 //			 }
-	}
+//	}
 
        
     
