@@ -16,29 +16,29 @@ def readProperties()
 }
 
 
-podTemplate(cloud:'openshift',label: 'dotnet',
-  containers: [
-    containerTemplate(
-      name: 'jnlp',
-      image: 'manya97/jnlp-slave-dotnet:multi',
-      alwaysPullImage: false,
-      envVars: [envVar(key:'http_proxy',value:''),envVar(key:'https_proxy',value:'')],
-      args: '${computer.jnlpmac} ${computer.name}',
-      ttyEnabled: true
-    )])
-{
-podTemplate(cloud:'openshift',label: 'docker',
-  containers: [
-    containerTemplate(
-      name: 'jnlp',
-      image: 'manya97/dotnet-docker-slave:latest',
-      alwaysPullImage: false,
-      envVars: [envVar(key:'http_proxy',value:''),envVar(key:'https_proxy',value:'')],
-      args: '${computer.jnlpmac} ${computer.name}',
-      ttyEnabled: true
-    )],volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')])
-{
-def PROXY_URL
+//podTemplate(cloud:'openshift',label: 'dotnet',
+//  containers: [
+//    containerTemplate(
+//      name: 'jnlp',
+//      image: 'manya97/jnlp-slave-dotnet:multi',
+//      alwaysPullImage: false,
+//      envVars: [envVar(key:'http_proxy',value:''),envVar(key:'https_proxy',value:'')],
+//     args: '${computer.jnlpmac} ${computer.name}',
+//      ttyEnabled: true
+//    )])
+//{
+//podTemplate(cloud:'openshift',label: 'docker',
+//  containers: [
+//    containerTemplate(
+//      name: 'jnlp',
+//      image: 'manya97/dotnet-docker-slave:latest',
+//      alwaysPullImage: false,
+//      envVars: [envVar(key:'http_proxy',value:''),envVar(key:'https_proxy',value:'')],
+//      args: '${computer.jnlpmac} ${computer.name}',
+//      ttyEnabled: true
+//    )],volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')])
+//{
+//def PROXY_URL
 node 
 {
    stage('Read properties')
@@ -47,13 +47,13 @@ node
        checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${SCR_CREDENTIALS}", url: "${GIT_SOURCE_URL}"]]])
    }
    
-    node('dotnet') 
-    {   
+  //  node('dotnet') 
+  //  {   
     
-       stage('Checkout')
-       {
-           checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${SCR_CREDENTIALS}", url: "${GIT_SOURCE_URL}"]]])
-       }
+  //     stage('Checkout')
+  //     {
+  //         checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${SCR_CREDENTIALS}", url: "${GIT_SOURCE_URL}"]]])
+  //     }
        
        	   stage('Initial Setup')
         	   {
@@ -92,35 +92,35 @@ node
     	   stage('Publish')
     	   {
     	        sh 'dotnet publish --no-build -o ./PublishOutput'
-    	        dir('./PublishOutput')
-    	        {
-    	            stash name : 'publishoutput' , includes : '**'
-    	        }
+ //   	        dir('./PublishOutput')
+ //   	        {
+ //   	            stash name : 'publishoutput' , includes : '**'
+ //   	        }
     	        
     	   }
 
-    }
+   // }
 	stage('Build Image'){
-		node('docker')
-			{
+//		node('docker')
+//			{
 				
-				container('jnlp')
-				{ 
-					       checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${SCR_CREDENTIALS}", url: "${GIT_SOURCE_URL}"]]])
+//				container('jnlp')
+//				{ 
+//					       checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${SCR_CREDENTIALS}", url: "${GIT_SOURCE_URL}"]]])
 
-						dir('./PublishOutput')
-						{
-							unstash name : 'publishoutput'
-						}
+//						dir('./PublishOutput')
+//						{
+//							unstash name : 'publishoutput'
+//						}
 						
 			
 						sh "docker build -t ${MS_NAME}:latest ."
 						sh "docker login -u manya97 -p manya@docker"
-						sh 'docker tag ${MS_NAME}:latest manya97/$MS_NAME:latest'
+						sh "docker tag ${MS_NAME}:latest manya97/$MS_NAME:latest"
 						sh 'docker push manya97/$MS_NAME:latest'
-				 }
+//				 }
 				
-			 }
+//			 }
 	}
 
        
@@ -130,5 +130,5 @@ node
    
 
 }
-}
-}
+//}
+//}
