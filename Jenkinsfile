@@ -63,7 +63,7 @@ node
         	   }
         	
            
-        	if(env.UNIT_TESTING == 'True')
+        	if(env.UNIT_TESTING == 'true')
            {
            	stage('Unit Testing')
            	{
